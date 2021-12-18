@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
 
     return res.status(200).json("User created Sucessfully");
   } catch (err) {
-    return res.status(500).json(err?.message || "server not connected");
+    return res.status(500).json(err);
   }
 });
 
@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
       .header(process.env.SECREAT_KEY, tokenData)
       .json({ token: tokenData, uid: isUserExists._id });
   } catch (err) {
-    return res.status(500).json(err?.message);
+    return res.status(500).json(err);
   }
 });
 
@@ -92,7 +92,7 @@ router.post("/temperature", checkTokenValidity, async (req, res) => {
     await newWeatherReport.save();
     res.status(200).json(temResult);
   } catch (err) {
-    return res.status(500).json(err?.message);
+    return res.status(500).json(err);
   }
 });
 
@@ -104,7 +104,7 @@ router.post("/getTemp", checkTokenValidity, async (req, res) => {
       .exec();
     return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json(err?.message);
+    res.status(500).json(err);
   }
 });
 

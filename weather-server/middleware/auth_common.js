@@ -12,7 +12,7 @@ export const hashPassword = async (plainPassword) => {
     return { data: hashPass, hashed: true };
   } catch (err) {
     console.log(err);
-    return { data: err?.message, hashed: false };
+    return { data: err, hashed: false };
   }
 };
 
@@ -22,7 +22,7 @@ export const comparePassword = async (plainPass, hashPass) => {
     return { data, isCompared: true };
   } catch (err) {
     console.log(err);
-    return { data: err?.message, isCompared: false };
+    return { data: err, isCompared: false };
   }
 };
 
@@ -35,7 +35,7 @@ export const generateToken = async ({ id, email }) => {
     return { tokenData: token, isTokenGenerated: true };
   } catch (err) {
     console.log(err);
-    return { tokenData: err?.message, isTokenGenerated: false };
+    return { tokenData: err, isTokenGenerated: false };
   }
 };
 
@@ -54,6 +54,6 @@ export const checkTokenValidity = async (req, res, next) => {
     if (!valid) return res.status(400).json("invalid token");
     next();
   } catch (err) {
-    return res.status(500).json(err?.message);
+    return res.status(500).json(err);
   }
 };
