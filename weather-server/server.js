@@ -5,6 +5,8 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import UserRouter from "./user/UserRouter.js";
+
 const app = express();
 app.use(express.json());
 dotenv.config();
@@ -30,6 +32,8 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Mongodb connetction successfully");
 });
+
+app.use("/user", UserRouter);
 
 app.listen(PORT, () => {
   console.log(`port listen in ${PORT}`);
