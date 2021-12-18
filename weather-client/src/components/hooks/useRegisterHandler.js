@@ -25,18 +25,15 @@ const useRegisterHandler = () => {
         .oneOf([Yup.ref("password"), null], "password didn't match"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("values", values);
       const { cpassword, uname, ...rest } = values;
       axios
         .post("/user/signup", { name: uname, ...rest })
         .then((res) => {
-          console.log("res", res.data);
           resetForm();
           toast.success("registered sucessfully");
-          //   history.replace("/");
+          history.replace("/");
         })
         .catch((err) => {
-          console.log("err", err?.response?.data);
           toast.error(err?.response?.data);
           resetForm();
         });

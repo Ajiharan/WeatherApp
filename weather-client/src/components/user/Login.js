@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <LoginContainer>
       <LoginSubContainer>
-        <h6 className="text-lead text-dark text-center mt-4">LOGIN ACCOUNT</h6>
+        <h6 className="text-lead text-dark text-center mt-4">LOGIN USER</h6>
         <div className="regform__outer"></div>
         <LoginForm />
       </LoginSubContainer>

@@ -5,6 +5,7 @@ dotenv.config();
 
 const SALT_ROUND = 10;
 
+//hash plain password
 export const hashPassword = async (plainPassword) => {
   try {
     const salt = bcrypt.genSaltSync(SALT_ROUND);
@@ -16,6 +17,7 @@ export const hashPassword = async (plainPassword) => {
   }
 };
 
+//compare plain and hash password
 export const comparePassword = async (plainPass, hashPass) => {
   try {
     const data = await bcrypt.compareSync(plainPass, hashPass);
@@ -26,6 +28,7 @@ export const comparePassword = async (plainPass, hashPass) => {
   }
 };
 
+//generate jwt token
 export const generateToken = async ({ id, email }) => {
   try {
     const token = await jwt.sign({ id, email }, process.env.SECREAT_KEY, {
@@ -39,6 +42,7 @@ export const generateToken = async ({ id, email }) => {
   }
 };
 
+//check token validity
 const tokenValidator = async (token) => {
   return await jwt.verify(token, process.env.SECREAT_KEY);
 };

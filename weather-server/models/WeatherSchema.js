@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+//create a whether schema model
 const WeatherSchema = new Schema({
   uid: {
     type: String,

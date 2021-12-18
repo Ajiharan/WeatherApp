@@ -12,7 +12,6 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === "user/setSignOut") {
-    // console.log("action.type", action.type);
     return appReducer(undefined, action);
   }
 

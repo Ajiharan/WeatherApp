@@ -22,11 +22,9 @@ const useLoginHandler = () => {
       password: Yup.string().required("password is required"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("values", values);
       axios
         .post("/user/login", values)
         .then((res) => {
-          console.log(res.data);
           setItem("userToken", res.data);
           toast.success(" sucessfully login");
           dispatch(setUserLoginDetails(res.data));
@@ -35,7 +33,6 @@ const useLoginHandler = () => {
           }, 0);
         })
         .catch((err) => {
-          console.log("error", err?.response?.data);
           toast.error(err?.response?.data);
           resetForm();
         });

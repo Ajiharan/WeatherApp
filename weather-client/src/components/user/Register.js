@@ -5,9 +5,7 @@ const Register = () => {
   return (
     <RegisterContainer>
       <RegisterSubContainer>
-        <h6 className="text-lead text-dark text-center mt-4">
-          REGISTER ACCOUNT
-        </h6>
+        <h6 className="text-lead text-dark text-center mt-4">REGISTER USER</h6>
         <div className="regform__outer"></div>
         <RegisterForm />
       </RegisterSubContainer>

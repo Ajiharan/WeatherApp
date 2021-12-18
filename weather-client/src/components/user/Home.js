@@ -5,15 +5,13 @@ import { useSelector } from "react-redux";
 import { selectUid, selectUserToken } from "../../redux/user/UserSlice";
 import TemperatureTable from "./TemperatureTable";
 import useStorage from "../hooks/useStorage";
+import { cityOne, cityTwo } from "../../api-config/config";
 const Home = () => {
   const [cityOneData, setCityOneData] = useState([]);
   const [cityTwoData, setCityTwoData] = useState([]);
   const uid = useSelector(selectUid);
   const token = useSelector(selectUserToken);
   const { setItem, getItem } = useStorage();
-
-  const cityOne = "London";
-  const cityTwo = "Colombo";
 
   const modifyCitiyArr = (cityName, tempData) => {
     return tempData
@@ -39,7 +37,6 @@ const Home = () => {
         { headers: { WEATHER: token } }
       )
       .then((res) => {
-        // console.log(res.data);
         setCityOneData(modifyCitiyArr(cityOne, res?.data));
         setCityTwoData(modifyCitiyArr(cityTwo, res?.data));
       })

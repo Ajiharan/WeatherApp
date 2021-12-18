@@ -33,6 +33,7 @@ connection.once("open", () => {
   console.log("Mongodb connetction successfully");
 });
 
+//initialize user router
 app.use("/user", UserRouter);
 
 app.listen(PORT, () => {
