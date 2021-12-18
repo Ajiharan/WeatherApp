@@ -97,7 +97,9 @@ router.post("/temperature", checkTokenValidity, async (req, res) => {
 router.post("/getTemp", checkTokenValidity, async (req, res) => {
   try {
     const { uid } = req.body;
-    const result = await WeathersSchema.find({ uid });
+    const result = await WeathersSchema.find({ uid })
+      .select({ cities: 1, date: 1 })
+      .exec();
     return res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err?.message);
