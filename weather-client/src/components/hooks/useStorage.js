@@ -5,7 +5,9 @@ const useStorage = () => {
 
   const getItem = (key) => localStorage.getItem(key);
 
-  return { setItem, getItem };
+  const deleteAll = () => localStorage.clear();
+
+  return { setItem, getItem, deleteAll };
 };
 
 export default useStorage;

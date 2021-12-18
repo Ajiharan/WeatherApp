@@ -12,15 +12,15 @@ const LoginForm = () => {
           formik={formik}
           name={"email"}
           placeholder={"Type Your email id"}
-          type="email"
-          label="Email id"
+          type={"email"}
+          label={"Email id"}
         />
         <FormField
           formik={formik}
           name={"password"}
           placeholder={"************"}
-          type="password"
-          label="Password"
+          type={"password"}
+          label={"Password"}
         />
 
         <div className="form-footer">

@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUid, setSignOut } from "../../redux/user/UserSlice";
+import useStorage from "../hooks/useStorage";
 
 const Header = () => {
   const uid = useSelector(selectUid);
   const dispatch = useDispatch();
+  const { deleteAll } = useStorage();
 
   const logoutuser = () => {
+    deleteAll();
     dispatch(setSignOut());
   };
   const getLinks = () => {

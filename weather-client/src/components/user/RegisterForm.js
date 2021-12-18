@@ -13,29 +13,29 @@ const RegisterForm = () => {
           formik={formik}
           name={"uname"}
           placeholder={"Type Your name"}
-          type="text"
-          label="Name"
+          type={"text"}
+          label={"Name"}
         />
         <FormField
           formik={formik}
           name={"email"}
           placeholder={"Type Your email id"}
-          type="email"
-          label="Email id"
+          type={"email"}
+          label={"Email id"}
         />
         <FormField
           formik={formik}
           name={"password"}
           placeholder={"************"}
-          type="password"
-          label="Password"
+          type={"password"}
+          label={"Password"}
         />
         <FormField
           formik={formik}
           name={"cpassword"}
           placeholder={"************"}
-          type="password"
-          label="Confirm Password"
+          type={"password"}
+          label={"Confirm Password"}
         />
         <div className="form-footer">
           <input

@@ -79,18 +79,27 @@ const getCity = (name) => {
 
 //get temperature details and store in database
 router.post("/temperature", checkTokenValidity, async (req, res) => {
-  const { cities, uid } = req.body;
+  const { cities, uid, isLogin } = req.body;
   try {
-    const result = await Promise.all([getCity(cities[0]), getCity(cities[1])]);
-    const temResult = result.map((r) => {
-      return { temp: r.data?.main?.temp, city: r?.data?.name };
-    });
-    const newWeatherReport = new WeathersSchema({
-      cities: temResult,
-      uid,
-    });
-    await newWeatherReport.save();
-    res.status(200).json(temResult);
+    if (isLogin) {
+      const result = await Promise.all([
+        getCity(cities[0]),
+        getCity(cities[1]),
+      ]);
+      const temResult = result.map((r) => {
+        return { temp: r.data?.main?.temp, city: r?.data?.name };
+      });
+      const newWeatherReport = new WeathersSchema({
+        cities: temResult,
+        uid,
+      });
+      await newWeatherReport.save();
+    }
+
+    const TempResult = await WeathersSchema.find({ uid })
+      .select({ cities: 1, date: 1 })
+      .exec();
+    return res.status(200).json(TempResult);
   } catch (err) {
     return res.status(500).json(err);
   }
