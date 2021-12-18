@@ -63,7 +63,9 @@ router.post("/login", async (req, res) => {
       email,
     });
     if (!isTokenGenerated) return res.status(500).json(tokenData);
-    return res.header(process.env.SECREAT_KEY, tokenData).json(tokenData);
+    return res
+      .header(process.env.SECREAT_KEY, tokenData)
+      .json({ token: tokenData, uid: isUserExists._id });
   } catch (err) {
     return res.status(500).json(err?.message);
   }

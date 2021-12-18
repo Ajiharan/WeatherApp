@@ -1,20 +1,35 @@
 import "./App.css";
-import React, { useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./components/user/Login";
+import Register from "./components/user/Register";
+import { Toaster } from "react-hot-toast";
+import Header from "./components/common/Header";
 function App() {
-  useEffect(() => {
-    axios
-      .get("https://api.openweathermap.org/data/2.5/weather", {
-        params: { q: "London", appid: "8dc9ba99c4e5fe28f4dc20edbc1848c0" },
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  return <div className="App"></div>;
+  const checkUserLogin = () => {
+    let routes = "";
+    routes = (
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/register" component={Register} />
+      </Switch>
+    );
+    return routes;
+  };
+  return (
+    <div className="App">
+      <Toaster />
+      <Router>
+        <Header />
+        {checkUserLogin()}
+      </Router>
+    </div>
+  );
 }
 
 export default App;
