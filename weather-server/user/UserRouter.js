@@ -1,7 +1,10 @@
 import express from "express";
 import { UsersSchema } from "../models/UserSchema.js";
+import axios from "../common/Axios.js";
+
 import dotenv from "dotenv";
 import {
+  checkTokenValidity,
   comparePassword,
   generateToken,
   hashPassword,
@@ -61,6 +64,25 @@ router.post("/login", async (req, res) => {
     });
     if (!isTokenGenerated) return res.status(500).json(tokenData);
     return res.header(process.env.SECREAT_KEY, tokenData).json(tokenData);
+  } catch (err) {
+    return res.status(500).json(err?.message);
+  }
+});
+
+const getCity = (name) => {
+  return axios.get("", {
+    params: { q: name, appid: process.env.API_KEY },
+  });
+};
+
+router.post("/temperature", checkTokenValidity, async (req, res) => {
+  const { cities } = req.body;
+  try {
+    const result = await Promise.all([getCity(cities[0]), getCity(cities[1])]);
+    const temResult = result.map((r) => {
+      return { temp: r.data?.main?.temp, city: r?.data?.name };
+    });
+    res.status(200).json(temResult);
   } catch (err) {
     return res.status(500).json(err?.message);
   }

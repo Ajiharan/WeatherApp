@@ -38,3 +38,22 @@ export const generateToken = async ({ id, email }) => {
     return { tokenData: err?.message, isTokenGenerated: false };
   }
 };
+
+const tokenValidator = async (token) => {
+  return await jwt.verify(token, process.env.SECREAT_KEY);
+};
+
+export const checkTokenValidity = async (req, res, next) => {
+  try {
+    const jwtToken = await req.header(process.env.SECREAT_KEY);
+
+    if (!jwtToken) return res.status(401).json("unauthorized access");
+    req.token = jwtToken;
+    const valid = await tokenValidator(jwtToken);
+
+    if (!valid) return res.status(400).json("invalid token");
+    next();
+  } catch (err) {
+    return res.status(500).json(err?.message);
+  }
+};
