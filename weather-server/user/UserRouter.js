@@ -1,7 +1,7 @@
 import express from "express";
 import { UsersSchema } from "../models/UserSchema.js";
 import axios from "../common/Axios.js";
-
+import { WeathersSchema } from "../models/WeatherSchema.js";
 import dotenv from "dotenv";
 import {
   checkTokenValidity,
@@ -75,16 +75,32 @@ const getCity = (name) => {
   });
 };
 
+//get temperature details and store in database
 router.post("/temperature", checkTokenValidity, async (req, res) => {
-  const { cities } = req.body;
+  const { cities, uid } = req.body;
   try {
     const result = await Promise.all([getCity(cities[0]), getCity(cities[1])]);
     const temResult = result.map((r) => {
       return { temp: r.data?.main?.temp, city: r?.data?.name };
     });
+    const newWeatherReport = new WeathersSchema({
+      cities: temResult,
+      uid,
+    });
+    await newWeatherReport.save();
     res.status(200).json(temResult);
   } catch (err) {
     return res.status(500).json(err?.message);
+  }
+});
+
+router.post("/getTemp", checkTokenValidity, async (req, res) => {
+  try {
+    const { uid } = req.body;
+    const result = await WeathersSchema.find({ uid });
+    return res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err?.message);
   }
 });
 
