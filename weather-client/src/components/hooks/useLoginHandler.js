@@ -30,7 +30,9 @@ const useLoginHandler = () => {
           setItem("userToken", res.data);
           toast.success(" sucessfully login");
           dispatch(setUserLoginDetails(res.data));
-          history.replace("/");
+          setTimeout(() => {
+            history.replace("/");
+          }, 0);
         })
         .catch((err) => {
           console.log("error", err?.response?.data);
