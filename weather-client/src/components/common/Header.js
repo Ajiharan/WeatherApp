@@ -17,7 +17,7 @@ const HeaderComponent = styled.div`
   height: 4rem;
   padding: 0.5rem;
   background-color: black;
-  opacity: 0.9;
+  opacity: 0.85;
   display: flex;
   justify-content: space-between;
   align-items: center;
